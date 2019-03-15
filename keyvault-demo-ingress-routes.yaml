@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: keyvault-demo-route
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+#services NEED to be in the same namespace as the ingress, otherwise you'll get a 503
+  rules:
+  - http:
+      paths:
+      - path: /keyvault-demo
+        backend:
+          serviceName: keyvault-demo
+          servicePort: 80
